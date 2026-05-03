@@ -29,6 +29,15 @@ jobs:
     - name: Install extensions deps (so prepare-extensions's Builder resolves adm-zip etc.)
       working-directory: ${{ github.workspace }}/../extensions
       run: npm ci --no-audit --no-fund
+    - name: Clone CrispStrobe/scratch-gui sibling
+      run: git clone --depth 1 --branch develop https://github.com/CrispStrobe/scratch-gui.git "$GITHUB_WORKSPACE/../scratch-gui"
+    - name: Install scratch-gui deps
+      working-directory: ${{ github.workspace }}/../scratch-gui
+      run: |
+        npm install --ignore-scripts --include=dev --legacy-peer-deps --no-audit --no-fund
+        # Stub the micro:bit firmware URL that --ignore-scripts skipped.
+        mkdir -p src/generated
+        printf "module.exports = '';\n" > src/generated/microbit-hex-url.cjs
     - name: Install dependencies
       run: npm ci --loglevel=info
     - name: Fetch
@@ -73,6 +82,15 @@ jobs:
     - name: Install extensions deps (so prepare-extensions's Builder resolves adm-zip etc.)
       working-directory: ${{ github.workspace }}/../extensions
       run: npm ci --no-audit --no-fund
+    - name: Clone CrispStrobe/scratch-gui sibling
+      run: git clone --depth 1 --branch develop https://github.com/CrispStrobe/scratch-gui.git "$GITHUB_WORKSPACE/../scratch-gui"
+    - name: Install scratch-gui deps
+      working-directory: ${{ github.workspace }}/../scratch-gui
+      run: |
+        npm install --ignore-scripts --include=dev --legacy-peer-deps --no-audit --no-fund
+        # Stub the micro:bit firmware URL that --ignore-scripts skipped.
+        mkdir -p src/generated
+        printf "module.exports = '';\n" > src/generated/microbit-hex-url.cjs
     - name: Install dependencies
       run: npm ci --loglevel=info
     - name: Fetch
@@ -154,6 +172,15 @@ jobs:
     - name: Install extensions deps (D: drive)
       working-directory: D:\extensions
       run: npm ci --no-audit --no-fund
+    - name: Clone CrispStrobe/scratch-gui sibling (D: drive)
+      run: git clone --depth 1 --branch develop https://github.com/CrispStrobe/scratch-gui.git D:\scratch-gui
+    - name: Install scratch-gui deps (D: drive)
+      working-directory: D:\scratch-gui
+      shell: bash
+      run: |
+        npm install --ignore-scripts --include=dev --legacy-peer-deps --no-audit --no-fund
+        mkdir -p src/generated
+        printf "module.exports = '';\n" > src/generated/microbit-hex-url.cjs
     - name: Install dependencies
       working-directory: D:\repo
       run: npm ci --loglevel=info
