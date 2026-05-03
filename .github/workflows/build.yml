@@ -18,6 +18,11 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: 24
+    # package.json's "@turbowarp/extensions": "file:../extensions" + scripts/
+    # prepare-extensions.mjs's "../../extensions/development/builder.js"
+    # both expect the gallery as a sibling of this checkout.
+    - name: Clone CrispStrobe/extensions sibling
+      run: git clone --depth 1 https://github.com/CrispStrobe/extensions.git "$GITHUB_WORKSPACE/../extensions"
     - name: Install dependencies
       run: npm ci --loglevel=info
     - name: Fetch
@@ -50,6 +55,8 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: 24
+    - name: Clone CrispStrobe/extensions sibling
+      run: git clone --depth 1 https://github.com/CrispStrobe/extensions.git "$GITHUB_WORKSPACE/../extensions"
     - name: Install dependencies
       run: npm ci --loglevel=info
     - name: Fetch
@@ -103,6 +110,11 @@ jobs:
       run: |
         npm config set cache D:\npm-cache
         npm config set prefix D:\npm-prefix
+    # package.json's "@turbowarp/extensions": "file:../extensions" resolves
+    # relative to D:\repo (where the checkout was moved), so the sibling
+    # has to live at D:\extensions.
+    - name: Clone CrispStrobe/extensions sibling (D: drive)
+      run: git clone --depth 1 https://github.com/CrispStrobe/extensions.git D:\extensions
     - name: Install dependencies
       working-directory: D:\repo
       run: npm ci --loglevel=info

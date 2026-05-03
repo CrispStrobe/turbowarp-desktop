@@ -18,6 +18,11 @@ jobs:
       with:
         node-version: 24
         cache: npm
+    # package.json has "@turbowarp/extensions": "file:../extensions" and
+    # scripts/prepare-extensions.mjs imports from "../../extensions/development/builder.js"
+    # — both expect the gallery to live alongside this checkout.
+    - name: Clone CrispStrobe/extensions sibling
+      run: git clone --depth 1 https://github.com/CrispStrobe/extensions.git "$GITHUB_WORKSPACE/../extensions"
     - name: Install dependencies
       run: npm ci
     - name: Prepare extensions

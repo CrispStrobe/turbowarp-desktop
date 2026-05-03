@@ -24,6 +24,8 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: 24
+    - name: Clone CrispStrobe/extensions sibling
+      run: git clone --depth 1 https://github.com/CrispStrobe/extensions.git "$GITHUB_WORKSPACE/../extensions"
     - name: Install dependencies
       run: npm ci --loglevel=info
     - name: Fetch
@@ -63,6 +65,8 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: 24
+    - name: Clone CrispStrobe/extensions sibling
+      run: git clone --depth 1 https://github.com/CrispStrobe/extensions.git "$GITHUB_WORKSPACE/../extensions"
     - name: Install dependencies
       run: npm ci --loglevel=info
     - name: Fetch
@@ -139,6 +143,8 @@ jobs:
       run: |
         npm config set cache D:\npm-cache
         npm config set prefix D:\npm-prefix
+    - name: Clone CrispStrobe/extensions sibling (D: drive)
+      run: git clone --depth 1 https://github.com/CrispStrobe/extensions.git D:\extensions
     - name: Install dependencies
       working-directory: D:\repo
       run: npm ci --loglevel=info
