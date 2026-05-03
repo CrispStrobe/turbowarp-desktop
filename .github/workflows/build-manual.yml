@@ -2,9 +2,6 @@ name: Build (Manual)
 
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - .github/workflows/build-manual.yml
 
 jobs:
   build-linux:
